@@ -9,3 +9,10 @@ pip install requirement.txt
 it use tecnologies like tesnsorflow.
 
 https://github.com/serengil/deepface
+
+
+
+# Environment variables
+HOST_ML=    (By default "0.0.0.0")
+PORT_ML=    (By default 5000)
+

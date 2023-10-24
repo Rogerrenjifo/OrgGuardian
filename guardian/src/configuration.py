@@ -6,26 +6,24 @@
 # Copyright (c) 2023, Roger Renjifo Tarquino                                   #
 #                                                                              #
 #                                                                              #
-# File: main.py                                                                #
+# File: configuration.py                                                       #
 # Project: OrgGuardian                                                         #
-# Last Modified: Thursday, 19th October 2023 3:01:44 pm                        #
+# Last Modified: Tuesday, 24th October 2023 1:36:46 am                         #
 # Modified By: Roger Renjifo (rrrenjifo@gmail.com>)                            #
 #                                                                              #
 # ############################################################################ #
 """
 
 
-from flask import Flask
-from guardian.src.configuration import api, database, port, host
-from guardian.src.controller.endpoints.facial_attributes import ns as facial_attributes
-from guardian.src.controller.endpoints.information import ns as information
+from os import getenv
+from dotenv import load_dotenv
+from flask_restx import Api
+from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
-api.init_app(app)
-database.init_app(app)
-api.add_namespace(information)
-api.add_namespace(facial_attributes)
+load_dotenv()
 
-if __name__ == "__main__":
-    app.run(host=host, port=port)
+port = int(getenv("PORT_ML", 80))
+host = str(getenv("HOST_ML", "0.0.0.0"))
+
+api = Api()
+database = SQLAlchemy()
